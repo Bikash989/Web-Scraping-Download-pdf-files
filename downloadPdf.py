@@ -50,6 +50,7 @@ try:
                 link += 1
 
     fh.close() # release resource
+    # opens the link file and downloads
     if link > 0:
         print(link , " links present!")
         fh = open(filename, 'r')
@@ -72,7 +73,7 @@ try:
         fh.close()
     else:
         os.remove(filename)
-        print('Sorry, No pdf links found at ' +url)
+        print('No pdf links found at ' +url)
 
 except Exception as e:
     print()
