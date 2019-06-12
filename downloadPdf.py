@@ -33,7 +33,7 @@ try:
         #retrieve anchor tags
         tags = soup('a')
         print("Connection established")
-
+        # ****************creating filename from url **************
         temp = url.split('/')
         if(len(temp) == 3):
             filename = temp[2].split('.')[1]
@@ -41,6 +41,7 @@ try:
             filename = temp[2].split('.')[1] + '-' + temp[ len(temp)-1]
         else:
             filename = temp[len(temp)-2] + '-' + temp[len(temp)-1]
+        # ************************************************************
         # filename = input('Enter file name to store the links : ')
         fh = open(filename,'w')
         link = 0 #to indicate if copied any links
@@ -73,7 +74,7 @@ try:
             words = link.split('/')
             fname = words[len(words)-1]
             #store inside a folder
-            fname = directory +"/"+ fname
+            fname = directory +"/"+ fname    #path for file 
             print('Downloading file from ', link)
             with open(fname,'wb') as fd:
                 for chunk in r.iter_content(chunk_size):
