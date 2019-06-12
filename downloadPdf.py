@@ -10,7 +10,12 @@ import requests
 import re
 import os #to delete the empty file, if no links found
 
-
+def createfolder(directory):
+    try:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+    except OSError:
+        print('Error: creating directory ', directory)
 try:
     #ignore SSL certification errors
     ctx = ssl.create_default_context()
@@ -28,7 +33,7 @@ try:
         #retrieve anchor tags
         tags = soup('a')
         print("Connection established")
-        #here we will create a folder and store in downloads later
+
         temp = url.split('/')
         if(len(temp) == 3):
             filename = temp[2].split('.')[1]
@@ -52,8 +57,12 @@ try:
     fh.close() # release resource
     # opens the link file and downloads
     if link > 0:
-        print(link , " links present!")
+        print(link , "links present!")
         fh = open(filename, 'r')
+        # creaet a new directory to store the downloads
+        directory = input("Enter folder name to store the PDFs: ")
+        createfolder(directory)
+        # ********************************************
         for line in fh:
             link = line.strip()
             # print('link: ',link)
@@ -63,12 +72,15 @@ try:
             #file name
             words = link.split('/')
             fname = words[len(words)-1]
+            #store inside a folder
+            fname = directory +"/"+ fname
             print('Downloading file from ', link)
             with open(fname,'wb') as fd:
                 for chunk in r.iter_content(chunk_size):
                     fd.write(chunk)
             # print("Done.")
-        print('\nDownloaded')
+        print(' ===== Downloaded ===== ')
+        print(' ===== Check folder ', directory, ' =====')
         os.remove(filename)
         fh.close()
     else:
@@ -76,6 +88,4 @@ try:
         print('No pdf links found at ' +url)
 
 except Exception as e:
-    print()
     print(e)
-    print("please enter http:// followed by the www dot example dot com")
