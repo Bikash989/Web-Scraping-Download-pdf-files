@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup
 # disable secure socket layer certification error, if any
 import ssl
 import requests
-import re
 import os #to delete the empty file, if no links found
 
 def createfolder(directory):
