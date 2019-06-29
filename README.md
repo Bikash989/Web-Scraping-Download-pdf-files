@@ -7,6 +7,9 @@ We then create a folder and open the file and read the links line by line and do
 
 Library Used:
 BeautifulSoup: pip3 install BeautifulSoup4
+
 requests: pip3 install requests
+
 ssl: for any certification error
+
 os: to create a folder
